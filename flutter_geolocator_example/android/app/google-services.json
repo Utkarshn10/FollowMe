@@ -1,0 +1,39 @@
+{
+    "project_info": {
+      "project_number": "583397431848",
+      "project_id": "locationshare-232fc",
+      "storage_bucket": "locationshare-232fc.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:583397431848:android:b94ae9c439de890522f31d",
+          "android_client_info": {
+            "package_name": "location.share"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "583397431848-qn9s7c4u8ucfs0n0tqvjs5gd0fil82fk.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDsRLoXtFsKYqeeaLJUXkyXx0x3GEvtxCc"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "583397431848-qn9s7c4u8ucfs0n0tqvjs5gd0fil82fk.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
