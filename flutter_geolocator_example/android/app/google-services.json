@@ -9,7 +9,7 @@
         "client_info": {
           "mobilesdk_app_id": "1:583397431848:android:b94ae9c439de890522f31d",
           "android_client_info": {
-            "package_name": "location.share"
+            "package_name": "com.example.flutter_geolocator_example"
           }
         },
         "oauth_client": [
