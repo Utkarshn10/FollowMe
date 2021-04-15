@@ -26,7 +26,13 @@ dependencies:
   firebase_database: ^6.1.2
   geocoding: ^2.0.0
   geolocator: ^7.0.1
-
+  audioplayers: ^0.18.3
+  flutter_beep: ^0.2.0
+  google_maps_flutter: ^2.0.3
+  location: ^4.0.0
+  flutter_polyline_points: ^0.2.6
+  http_parser: ^4.0.0
+  # soundpool: ^1.1.1
   # flutter: 1
   # geoflutterfire: 2.0.2
   # google_maps_flutter: 0.2.0
@@ -51,7 +57,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    - assets/alarm.mp3
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
