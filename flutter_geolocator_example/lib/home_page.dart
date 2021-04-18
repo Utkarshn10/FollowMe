@@ -1,4 +1,3 @@
-// import 'package:flutter_geolocator_example/screens/google_map_screen.dart';
 import 'dart:core';
 import 'dart:io';
 import 'dart:math' show cos, sqrt, asin;
@@ -12,7 +11,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:audioplayers/audio_cache.dart';
-import 'package:flutter_beep/flutter_beep.dart';
+// import 'package:flutter_beep/flutter_beep.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,8 +20,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Future<FirebaseApp> _future = Firebase.initializeApp();
-
-  final textcontroller = TextEditingController();
   String sound = 'audio/alarm.mp3';
   double lat_parent = 0;
   double long_parent = 0;
@@ -81,12 +78,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   // @override
+  // void initState() {
+  //   _getCurrentLocation();
+  //   super.initState();
+  // }
+
+  // @override
   Widget build(BuildContext context) {
     // printFirebase();
+    // _getCurrentLocation();
+    print('Add : $_currentAddress');
+    print('Latitude : $_currentPosition.latitude');
     return Scaffold(
       appBar: AppBar(
         title: Text("FollowME"),
-        centerTitle: false,
+        backgroundColor: Colors.purple[500],
+        centerTitle: true,
       ),
       body: FutureBuilder(
           future: _future,
@@ -100,83 +107,65 @@ class _HomePageState extends State<HomePage> {
                   // key: formkey,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    //if (_currentAddress != null)
-                    Expanded(
-                      //color: Colors.purple,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.purple[300],
-                          // borderRadius: BorderRadius.only(
-                          //   bottomLeft: Radius.circular(30.0),
-                          //   bottomRight: Radius.circular(30.0),
-                          // ),
-                        ),
-                        width: double.infinity,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 24.0),
-                                child: Icon(
-                                  Icons.location_on,
-                                  color: Colors.white,
-                                  size: 60.0,
-                                ),
-                              ),
-                              if (_currentAddress != null)
-                                Text(
-                                  _currentAddress,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 23.0),
-                                ),
-                            ],
+                    if (_currentAddress != null)
+                      Expanded(
+                        //color: Colors.purple,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30.0),
+                              bottomRight: Radius.circular(30.0),
+                            ),
+                          ),
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              _currentAddress,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 25.0),
+                            ),
                           ),
                         ),
                       ),
-                    ),
                     // FlatButton(
                     //   child: Text("Get location"),
-                    //   onPressed: () async {
-                    //     await _getCurrentLocation();
+                    //   onPressed: () {
+                    //     _getCurrentLocation();
                     //   },
                     // ),
-                    Padding(
-                      //flex: 2,
-                      padding: EdgeInsets.symmetric(vertical: 150.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: TextButton(
-                          onPressed: () {
-                            advancedPlayer.stop();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: Colors.purple[200],
-                            ),
-                            padding: EdgeInsets.all(10.0),
-                            width: 120.0,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.stop,
+                    Expanded(
+                      flex: 2,
+                      child: TextButton(
+                        onPressed: () {
+                          _getCurrentLocation();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: Colors.purple[200],
+                          ),
+                          padding: EdgeInsets.all(10.0),
+                          width: 225.0,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.location_city_rounded,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(
+                                ' Activate Location',
+                                style: TextStyle(
                                   color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 19.0,
                                 ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  'STOP',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -193,17 +182,6 @@ class _HomePageState extends State<HomePage> {
             }
             // ),
           }),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => GoogleMapScreen(
-      //           pos: <double>[lat_parent, long_parent, lat_child, long_child]),
-      //     ),
-      //   ),
-      //   tooltip: 'Google Map',
-      //   child: Icon(Icons.pin_drop_outlined),
-      // ),
     );
   }
 
@@ -214,13 +192,12 @@ class _HomePageState extends State<HomePage> {
         .then((Position position) {
       setState(() {
         _currentPosition = position;
-        printFirebase();
-        lat_parent = _currentPosition.latitude;
-        long_parent = _currentPosition.longitude;
-        // printFirebase();
-        addData(lat_parent, long_parent);
-        // itemRef.push().set(item.toJson());
+        double lat = _currentPosition.latitude;
+        double long = _currentPosition.longitude;
+        print('Lat : $lat');
+        addData(lat, long);
         _getAddressFromLatLng();
+        // itemRef.push().set(item.toJson());
       });
     }).catchError((e) {
       print(e);
@@ -229,8 +206,8 @@ class _HomePageState extends State<HomePage> {
 
   _getAddressFromLatLng() async {
     try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(lat_child, long_child);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
 
       Placemark place = placemarks[0];
 
@@ -238,6 +215,7 @@ class _HomePageState extends State<HomePage> {
         _currentAddress =
             "${place.street}, ${place.locality}, ${place.administrativeArea}";
       });
+      print('Add : $_currentAddress');
     } catch (e) {
       print(e);
     }
